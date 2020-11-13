@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c6e2d6dd-7c22-4097-a3ee-6d36c32f2110" name="azharkih">
+        <fileTransfer rootFolder="/home/users/p/promtehnika" accessType="SFTP" host="promtehnika.myjino.ru" port="22" sshConfigId="49ed96fd-9a74-4c93-b2fc-9f8ae0b72fbd" sshConfig="promtehnika@promtehnika.myjino.ru:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

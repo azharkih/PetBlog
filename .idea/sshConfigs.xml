@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="promtehnika.myjino.ru" id="49ed96fd-9a74-4c93-b2fc-9f8ae0b72fbd" port="22" nameFormat="DESCRIPTIVE" username="promtehnika" />
+    </configs>
+  </component>
+</project>
