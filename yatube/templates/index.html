@@ -2,15 +2,19 @@
 {% block title %}Последние обновления на сайте{% endblock %}
 {% block header %}Последние обновления на сайте{% endblock %}
 {% block content %}
+  <div class="container">
 
-    {% for post in posts %}
-        <h3>
-            Автор: {{ post.author.get_full_name }}, Дата публикации:
-            {{ post.pub_date | date:"d M Y" }}
-        </h3>
-        <p>{{ post.text|linebreaksbr }}</p>
-        {% if not forloop.last %}
-            <hr>{% endif %}
-    {% endfor %}
+    {% include "includes/menu.html" with index=True %}
+    {% load cache %}
+    {% cache 20 index_page %}
+      {% for post in page %}
+         {% include "includes/card_post.html" with post=post %}
+      {% endfor %}
 
+      {% if page.has_other_pages %}
+        {% include "includes/paginator.html" with items=page paginator=paginator%}
+      {% endif %}
+    {% endcache %}
+
+  </div>
 {% endblock %} 

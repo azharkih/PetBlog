@@ -12,6 +12,8 @@
             <excludedPath local="true" path="$PROJECT_DIR$/venv" />
             <excludedPath local="true" path="$PROJECT_DIR$/yatube/db.sqlite3" />
             <excludedPath local="true" path="$PROJECT_DIR$/.gitignore" />
+            <excludedPath local="true" path="$PROJECT_DIR$/yatube/yatube/settings.py" />
+            <excludedPath local="true" path="$PROJECT_DIR$/develop.env" />
           </excludedPaths>
         </serverdata>
       </paths>

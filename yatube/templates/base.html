@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}The Last Social Media You'll Ever Need{% endblock %}
-        | Yatube</title>
+    <title>{% block title %}The Last Social Media You'll Ever Need{% endblock %} | Yatube</title>
     <!-- Загрузка статики -->
     {% load static %}
     <link rel="stylesheet"
@@ -16,17 +15,18 @@
 </head>
 
 <body>
-{% include 'nav.html' %}
+{% include 'includes/nav.html' %}
 <main>
     <div class="container">
- <!--       <h1>{% block header %}The Last Social Media You'll Ever
-            Need{% endblock %}</h1> -->
+        <p> </p>
+        <h1>{% block header %}{% endblock %}</h1>
+        <p> </p>
         {% block content %}
             <!-- Содержимое страницы -->
         {% endblock %}
     </div>
 </main>
-{% include 'footer.html' %}
+{% include 'includes/footer.html' %}
 </body>
 
 </html>

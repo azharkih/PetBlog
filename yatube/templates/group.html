@@ -7,13 +7,12 @@
         {{ group.description }}
     </p>
 
-    {% for post in posts %}
-        <h3>
-            Автор: {{ post.author.get_full_name }}, дата публикации:
-            {{ post.pub_date | date:"d M Y" }}
-        </h3>
-        <p>{{ post.text }}</p>
-        <hr>
+    {% for post in page %}
+        {% include "includes/card_post.html" with post=post %}
     {% endfor %}
+
+    {% if page.has_other_pages %}
+        {% include "includes/paginator.html" with items=page paginator=paginator%}
+    {% endif %}
 
 {% endblock %}
