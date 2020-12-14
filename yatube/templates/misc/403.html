@@ -1,0 +1,15 @@
+{% extends "base.html" %} 
+{% block title %} Ошибка 404 {% endblock %}
+{% block content %}
+
+<main role="main" class="container">
+<div class="row">
+    <div class="col-md-12">
+        <h1>Ошибка 403</h1>
+        <p class="lead"> У вас нет прав на редактирование данной записи :(</p>
+        <p class="lead"><a href="{% url  'index' %}">Перейти на главную</a></p>
+    </div>
+</div>
+</main>
+
+{% endblock %} 
