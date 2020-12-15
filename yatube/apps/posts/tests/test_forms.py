@@ -3,9 +3,9 @@ import tempfile
 from django.test import override_settings
 from django.urls import reverse
 
+from .fixtures import TestingStand, get_sample_image_file, get_sample_text_file
 from ..forms import PostForm
 from ..models import Post
-from .fixtures import TestingStand, get_sample_image_file, get_sample_text_file
 
 
 class PostCreateFormTests(TestingStand):
@@ -54,7 +54,10 @@ class PostCreateFormTests(TestingStand):
             follow=True
         )
         # Проверяем, сработал ли редирект
-        self.assertRedirects(response, reverse('index'))
+        new_post = Post.objects.first()
+        self.assertRedirects(response, reverse('post',
+                                               args=[new_post.author.username,
+                                                     str(new_post.id)]))
         # Проверяем, увеличилось ли число постов
         self.assertEqual(Post.objects.count(), posts_count + 1)
         # Проверяем, содался ли новый пост с указанными параметрами

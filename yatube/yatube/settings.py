@@ -6,6 +6,23 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG')
 
+if DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django.db.backends': {
+                'level': 'DEBUG',
+                'handlers': ['console'],
+            }
+        },
+    }
+
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 INTERNAL_IPS = [

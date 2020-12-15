@@ -1,3 +1,4 @@
+from django.db.models import Count, Sum, When, Case, BooleanField
 from django.shortcuts import get_object_or_404
 
 from .models import User, Follow
@@ -44,4 +45,11 @@ class UserProfile:
     def user_posts(self):
         """ Вернуть выборку постов пользователя."""
         return self.user.posts.select_related(
-            'group').prefetch_related('comments')
+            'group').annotate(
+            count_comments=Count('comments', distinct=True),
+            count_likes=Count('likes', distinct=True),
+            is_user_liked=Sum(Case(When(likes__user=self.viewer, then=True),
+                                   default=False,
+                                   output_field=BooleanField())
+                              )
+        )

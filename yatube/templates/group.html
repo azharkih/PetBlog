@@ -7,7 +7,7 @@
         {{ group.description }}
     </p>
 
-    {% for post in page %}
+    {% for post in posts %}
         {% include "includes/card_post.html" with post=post %}
     {% endfor %}
 

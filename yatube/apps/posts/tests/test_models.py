@@ -1,5 +1,3 @@
-from django.test import TestCase
-
 from .fixtures import TestingStand
 
 
@@ -7,7 +5,7 @@ class GroupModelTest(TestingStand):
     """ Класс GroupModelTest используется для тестирования модели Group
     приложения posts.
 
-    Родительский класс -- TestingStand, TestCase.
+    Родительский класс -- TestingStand.
 
     Методы класса
     --------
@@ -52,11 +50,11 @@ class GroupModelTest(TestingStand):
         self.assertEquals(expected_object_name, str(group))
 
 
-class PostModelTest(TestingStand, TestCase):
+class PostModelTest(TestingStand):
     """ Класс GroupModelTest используется для тестирования модели Post
     приложения posts.
 
-    Родительский класс -- TestingStand, TestCase.
+    Родительский класс -- TestingStand.
 
     Методы класса
     --------
@@ -105,11 +103,11 @@ class PostModelTest(TestingStand, TestCase):
         self.assertEquals(expected_object_name, str(post))
 
 
-class CommentModelTest(TestingStand, TestCase):
+class CommentModelTest(TestingStand):
     """ Класс CommentModelTest используется для тестирования модели Comment
     приложения posts.
 
-    Родительский класс -- TestingStand, TestCase.
+    Родительский класс -- TestingStand.
 
     Методы класса
     --------
@@ -156,11 +154,11 @@ class CommentModelTest(TestingStand, TestCase):
         self.assertEquals(expected_object_name, str(comment))
 
 
-class FollowModelTest(TestingStand, TestCase):
+class FollowModelTest(TestingStand):
     """ Класс FollowModelTest используется для тестирования модели Follow
     приложения posts.
 
-    Родительский класс -- TestingStand, TestCase.
+    Родительский класс -- TestingStand.
 
     Методы класса
     --------
@@ -201,3 +199,50 @@ class FollowModelTest(TestingStand, TestCase):
         follow = FollowModelTest.follow1
         expected_object_name = f'{follow.user} подписан на {follow.author}'
         self.assertEquals(expected_object_name, str(follow))
+
+
+class LikeModelTest(TestingStand):
+    """ Класс LikeModelTest используется для тестирования модели Like
+    приложения posts.
+
+    Родительский класс -- TestingStand.
+
+    Методы класса
+    --------
+    test_verbose_name() -- проверяет, что verbose_name в полях совпадает с
+        ожидаемым.
+    test_help_text() -- проверяет, что help_text в полях совпадает с ожидаемым.
+    test_object_name_equal_title() -- проверяет, что __str__ like возвращает
+    корректное значение.
+    """
+
+    def test_verbose_name(self):
+        """Проверить, что verbose_name в полях совпадает с ожидаемым."""
+        like = LikeModelTest.like1
+        field_verboses = {
+            'user': 'Пользователь',
+            'post': 'Сообщение',
+        }
+        for value, expected in field_verboses.items():
+            with self.subTest(value=value):
+                self.assertEqual(
+                    like._meta.get_field(value).verbose_name, expected)
+
+    def test_help_text(self):
+        """Проверить, что help_text в полях совпадает с ожидаемым."""
+        like = LikeModelTest.like1
+        field_help_texts = {
+            'user': 'Укажите пользователя',
+            'post': 'Укажите к какому посту лайк',
+        }
+        for value, expected in field_help_texts.items():
+            with self.subTest(value=value):
+                self.assertEqual(
+                    like._meta.get_field(value).help_text, expected)
+
+    def test_object_name_equal_title(self):
+        """Проверить, что __str__  group возвращает значение отражающее кто на
+        кого подписан."""
+        like = LikeModelTest.like1
+        expected_object_name = f'{like.user} оценил пост {like.post_id}'
+        self.assertEquals(expected_object_name, str(like))

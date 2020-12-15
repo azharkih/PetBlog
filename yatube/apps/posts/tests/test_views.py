@@ -144,11 +144,12 @@ class PostsPagesTests(TestingStand):
                                   str(test_post.id)]))
 
         user_info = {
-            'fullname': ' '.join((author.first_name, author.last_name)),
+            'first_name': author.first_name,
+            'last_name': author.last_name,
             'username': author.username,
-            'quantity_posts': author.posts.count(),
-            'quantity_followers': author.following.count(),
-            'quantity_following': author.follower.count(),
+            'count_posts': author.posts.count(),
+            'count_followers': author.following.count(),
+            'count_following': author.follower.count(),
             'is_follow_available': True,
             'is_following': True
         }

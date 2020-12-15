@@ -56,7 +56,8 @@ class PostsURLTests(TestingStand):
         # Страницы требующие авторизации одним из пользователей. Level1
         cls.pages_login_required = {
             '/new/': 'new_post.html',
-            '/follow/': 'follow.html',
+            '/follow/': 'index.html',
+            '/like/': 'index.html',
         }
         # Страницы требующие авторизации автором. Level2
         cls.pages_login_author_required = {

@@ -23,7 +23,7 @@ class Post(models.Model):
 
     Атрибуты класса
     --------
-                                            PK <-- Comment
+                                            PK <-- Comment, Like
     text : models.TextField()
         текст сообщения
     pub_date : models.DateTimeField()
@@ -226,7 +226,7 @@ class Follow(models.Model):
     Атрибуты класса
     --------
                                             PK <--
-    follower : models.ForeignKey()          FK --> User
+    user : models.ForeignKey()              FK --> User
         ссылка на модель User
     author : models.ForeignKey()            FK --> User
         ссылка на модель User
@@ -258,5 +258,49 @@ class Follow(models.Model):
                                         name='unique_following')]
 
     def __str__(self):
-        """ Вернуть строковое представление в виде имени сообщества."""
+        """ Вернуть строковое представление."""
         return f'{self.user} подписан на {self.author}'
+
+
+class Like(models.Model):
+    """ Класс Like используется для описания модели лаков к постам.
+
+    Родительский класс -- models.Model.
+
+    Атрибуты класса
+    --------
+                                            PK <--
+    user : models.ForeignKey()              FK --> User
+        ссылка на модель User
+    post : models.ForeignKey()              FK --> Post
+        ссылка на модель Post
+
+        Методы класса
+        --------
+        __str__() -- строковое представление модели.
+    """
+
+    user = models.ForeignKey(
+        User,
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE,
+        related_name='likes',
+        help_text='Укажите пользователя'
+    )
+    post = models.ForeignKey(
+        Post,
+        verbose_name='Сообщение',
+        on_delete=models.CASCADE,
+        related_name='likes',
+        help_text='Укажите к какому посту лайк'
+    )
+
+    class Meta:
+        verbose_name_plural = 'Лайки'
+        verbose_name = 'Лайк'
+        constraints = [UniqueConstraint(fields=['user', 'post'],
+                                        name='unique_like')]
+
+    def __str__(self):
+        """ Вернуть строковое представление."""
+        return f'{self.user} оценил пост {self.post_id}'

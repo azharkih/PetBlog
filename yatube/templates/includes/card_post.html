@@ -1,46 +1,52 @@
 <div class="card mb-3 mt-1 shadow-sm">
-    {% load thumbnail %}
-    {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
-        <img class="card-img" src="{{ im.url }}">
-    {% endthumbnail %}
-    <div class="card-body">
-        <p class="card-text">
-            <a name="post_{{ post.id }}"
-               href="{% url 'profile' post.author.username %}">
-                <strong class="d-block text-gray-dark">@{{ post.author }}</strong>
-            </a>
-            {{ post.text|linebreaksbr }}
-        </p>
-        {% if post.group %}
-            <a class="card-link muted"
-               href="{% url 'group_posts' post.group.slug %}">
-                <strong class="d-block text-gray-dark">#{{ post.group.title }}</strong>
-            </a>
+  {% load thumbnail %}
+  {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+    <img class="card-img" src="{{ im.url }}">
+  {% endthumbnail %}
+  <div class="card-body">
+    <p class="card-text">
+      <a name="post_{{ post.id }}"
+         href="{% url 'profile' post.author.username %}">
+        <strong class="d-block text-gray-dark">@{{ post.author }}</strong>
+      </a>
+      {{ post.text|linebreaksbr }}
+    </p>
+    {% if post.group %}
+      <a class="card-link muted"
+         href="{% url 'group_posts' post.group.slug %}">
+        <strong class="d-block text-gray-dark">#{{ post.group.title }}</strong>
+      </a>
+    {% endif %}
+
+    <p><small class="text-muted">{{ post.pub_date }}</small></p>
+
+    {% load static %}
+    {% if post.is_user_liked %}
+      <a href="{% url 'post_unlike' post.author.username post.id %}">
+        <img src={% static 'icons/liked.png' %} alt="liked">
+      </a> ({{ post.count_likes }})
+    {% else %}
+      <a href="{% url 'post_like' post.author.username post.id %}">
+        <img src={% static 'icons/not_liked.png' %} alt="like">
+      </a> ({{ post.count_likes }})
+    {% endif %}
+
+    <div class="btn-group">
+      <div class="d-flex justify-content-between align-items-center">
+        <a class="btn btn-sm btn-primary"
+           href="{% url 'post' post.author.username post.id %}"
+           role="button">
+          Перейти к обсуждению ({{ post.count_comments }})
+        </a>
+        {% if user == post.author %}
+          <a class="btn btn-sm btn-info"
+             href="{% url 'post_edit' post.author.username post.id %}"
+             role="button">
+            Редактировать
+          </a>
         {% endif %}
-        {% if post.comments.exists %}
-            <div>
-                Комментариев: {{ post.comments.count }}
-            </div>
-        {% endif %}
-        <div class="d-flex justify-content-between align-items-center">
+      </div>
 
-            <div class="btn-group">
-
-                <a class="btn btn-sm btn-primary"
-                   href="{% url 'post' post.author.username post.id %}"
-                   role="button">
-                    Перейти к обсуждению ({{ post.comments.count }})
-                </a>
-
-                {% if user == post.author %}
-                    <a class="btn btn-sm btn-info"
-                       href="{% url 'post_edit' post.author.username post.id %}"
-                       role="button">
-                        Редактировать
-                    </a>
-                {% endif %}
-            </div>
-            <small class="text-muted">{{ post.pub_date }}</small>
-        </div>
     </div>
+  </div>
 </div>

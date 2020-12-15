@@ -7,7 +7,7 @@ from django.core.files import File
 from django.test import TestCase, Client
 from django.test import override_settings
 
-from ..models import Post, Group, Follow, Comment, User
+from ..models import Post, Group, Follow, Comment, User, Like
 
 
 def get_sample_image_file(name):
@@ -100,6 +100,10 @@ class TestingStand(TestCase):
             post=cls.post1,
             author=cls.user1,
             text="Первый комментарий"
+        )
+        cls.like1 = Like.objects.create(
+            user=cls.user2,
+            post=cls.post1
         )
         # Создаем неавторизованный клиент
         cls.guest_client = Client()
