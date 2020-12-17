@@ -93,11 +93,11 @@ class PostsPagesTests(TestingStand):
         (число постов в контексте == 2)."""
         cache.clear()
         response = self.guest_client.get(reverse('index'))
-        self.subtest_correct_context_in_posts_dict(response, 'page')
+        self.subtest_correct_context_in_posts_dict(response, 'posts')
         # имеется ли картинка на странице относящаяся к посту
         self.subtest_html_has_img_tag(response)
         # Записей на странице должно быть 2
-        self.assertEqual(len(response.context.get('page')), 2)
+        self.assertEqual(len(response.context.get('posts')), 2)
 
     def test_group_posts_show_correct_context(self):
         """Проверить контекст шаблона group_posts
@@ -113,10 +113,10 @@ class PostsPagesTests(TestingStand):
                          PostsPagesTests.group2.slug)
         self.assertEqual(response.context.get('group').description,
                          PostsPagesTests.group2.description)
-        self.subtest_correct_context_in_posts_dict(response, 'page')
+        self.subtest_correct_context_in_posts_dict(response, 'posts')
         self.subtest_html_has_img_tag(response)
         # Запись для данной группы одна
-        self.assertEqual(len(response.context.get('page')), 1)
+        self.assertEqual(len(response.context.get('posts')), 1)
         # В контекст передается пагинатор
         self.assertIsInstance(response.context.get('paginator'), Paginator)
 
@@ -153,7 +153,13 @@ class PostsPagesTests(TestingStand):
             'is_follow_available': True,
             'is_following': True
         }
-        self.assertEqual(response.context.get('author'), user_info)
+
+        context_author = response.context.get('author')
+        for value, expected in user_info.items():
+            with self.subTest(value=value):
+                author_attribute = getattr(context_author, value)
+                self.assertEqual(author_attribute, expected)
+
         self.assertEqual(response.context.get('post'), test_post)
         self.subtest_html_has_img_tag(response)
 
@@ -227,7 +233,7 @@ class PostsPagesTests(TestingStand):
         cache.clear()
         response = self.authorized_client.get(reverse('index'))
         count_posts = Post.objects.count()
-        self.assertEqual(len(response.context['page']), count_posts,
+        self.assertEqual(len(response.context['posts']), count_posts,
                          'В контекст передаются не все записи')
         Post.objects.create(text='тест', author=PostsPagesTests.user2)
         self.assertEqual(count_posts + 1, Post.objects.count(),

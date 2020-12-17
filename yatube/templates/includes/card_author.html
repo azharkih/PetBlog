@@ -23,12 +23,12 @@
             <li class="list-group-item">
                 {% if author.is_following %}
                 <a class="btn btn-lg btn-light"
-                        href="{% url 'profile_unfollow' author.username %}" role="button">
+                        href="{% url 'profile_unfollow' author.username %}?next={{request.path}}" role="button">
                         Отписаться
                 </a>
                 {% else %}
                 <a class="btn btn-lg btn-primary"
-                        href="{% url 'profile_follow' author.username %}" role="button">
+                        href="{% url 'profile_follow' author.username %}?next={{request.path}}" role="button">
                         Подписаться
                 </a>
                 {% endif %}

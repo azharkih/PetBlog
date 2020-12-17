@@ -22,11 +22,11 @@
 
     {% load static %}
     {% if post.is_user_liked %}
-      <a href="{% url 'post_unlike' post.author.username post.id %}">
+      <a href="{% url 'post_unlike' post.author.username post.id %}?next={{request.path}}">
         <img src={% static 'icons/liked.png' %} alt="liked">
       </a> ({{ post.count_likes }})
     {% else %}
-      <a href="{% url 'post_like' post.author.username post.id %}">
+      <a href="{% url 'post_like' post.author.username post.id %}?next={{request.path}}">
         <img src={% static 'icons/not_liked.png' %} alt="like">
       </a> ({{ post.count_likes }})
     {% endif %}

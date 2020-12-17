@@ -1,7 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, Case, When, BooleanField, Sum
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import UpdateView
 from django.views.generic.detail import DetailView
@@ -10,7 +9,7 @@ from django.views.generic.list import ListView
 
 from .forms import PostForm, CommentForm
 from .models import Post, Group, Follow, User, Like
-from .view_add import UserProfile
+from .view_add import UserProfile, PostQuerySet
 
 
 def page_not_found(request, exception):
@@ -44,15 +43,8 @@ class MainIndexView(ListView):
 
     def get_queryset(self):
         """Вернуть queryset."""
-        user = self.request.user
-        return Post.objects.select_related('group', 'author').annotate(
-            count_comments=Count('comments', distinct=True),
-            count_likes=Count('likes', distinct=True),
-            is_user_liked=Sum(Case(When(likes__user=user, then=True),
-                                   default=False,
-                                   output_field=BooleanField())
-                              )
-        )
+        queryset = PostQuerySet(self.request.user)
+        return queryset.get_posts_with_stat()
 
 
 class FollowIndexView(LoginRequiredMixin, MainIndexView):
@@ -72,7 +64,7 @@ class LikeIndexView(LoginRequiredMixin, MainIndexView):
 
     def get_queryset(self):
         return super(LikeIndexView, self).get_queryset().filter(
-            author__likes__user=self.request.user)
+            is_user_liked=True)
 
 
 class GroupPostsView(MainIndexView):
@@ -105,17 +97,16 @@ class UserProfileView(MainIndexView):
 
     def get_queryset(self):
         author = get_object_or_404(User, username=self.kwargs['username'])
-        return super(UserProfileView, self).get_queryset().filter(
+        queryset = PostQuerySet(self.request.user)
+        return queryset.get_posts_with_stat().filter(
             author=author)
 
     def get_context_data(self, **kwargs):
         """Вернуть контекст с добавленным автором."""
         context = super(UserProfileView, self).get_context_data(**kwargs)
-        context['author'] = User.objects.annotate(
-            count_posts=Count('posts', distinct=True),
-            count_followers=Count('following', distinct=True),
-            count_following=Count('follower', distinct=True)
-        ).get(username=self.kwargs['username'])
+        queryset = PostQuerySet(self.request.user)
+        context['author'] = queryset.get_author_with_stat(
+            self.kwargs['username'])
         return context
 
 
@@ -134,29 +125,20 @@ class PostView(DetailView):
     pk_url_kwarg = 'post_id'
 
     def get_queryset(self):
-        """Вернуть queryset."""
         author = get_object_or_404(User, username=self.kwargs['username'])
-        return author.posts.select_related(
-            'group').annotate(
-            count_comments=Count('comments', distinct=True),
-            count_likes=Count('likes', distinct=True),
-            is_user_liked=Sum(
-                Case(When(likes__user=self.request.user, then=True),
-                     default=False,
-                     output_field=BooleanField())
-            )
-        )
+        queryset = PostQuerySet(self.request.user)
+        return queryset.get_posts_with_stat().filter(
+            author=author)
 
     def get_context_data(self, **kwargs):
         """Вернуть контекст с добавленным автором."""
         context = super(PostView, self).get_context_data(**kwargs)
-        context['author'] = User.objects.annotate(
-            count_posts=Count('posts', distinct=True),
-            count_followers=Count('following', distinct=True),
-            count_following=Count('follower', distinct=True)
-        ).get(username=self.kwargs['username'])
-        context['comments'] = context['object'].comments.all()
+        queryset = PostQuerySet(self.request.user)
+        context['author'] = queryset.get_author_with_stat(
+            self.kwargs['username'])
         context['form'] = CommentForm()
+        context['comments'] = context['object'].comments.all()
+
         return context
 
 
@@ -255,7 +237,11 @@ class ProfileFollowView(LoginRequiredMixin, View):
         user = self.request.user
         if author != user:
             Follow.objects.get_or_create(author=author, user=user)
-        return redirect(self.request.META.get('HTTP_REFERER'))
+        return redirect(
+            self.request.GET.get('next',
+                                 reverse('profile', kwargs=self.kwargs)
+                                 )
+        )
 
 
 class ProfileUnfollowView(LoginRequiredMixin, View):
@@ -265,7 +251,11 @@ class ProfileUnfollowView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         author = get_object_or_404(User, username=self.kwargs['username'])
         Follow.objects.filter(author=author, user=self.request.user).delete()
-        return redirect(self.request.META.get('HTTP_REFERER'))
+        return redirect(
+            self.request.GET.get('next',
+                                 reverse('profile', kwargs=self.kwargs)
+                                 )
+        )
 
 
 class PostLikeView(LoginRequiredMixin, View):
@@ -275,7 +265,7 @@ class PostLikeView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         post = get_object_or_404(Post, id=self.kwargs['post_id'])
         Like.objects.get_or_create(post=post, user=self.request.user)
-        back_reference = f"{self.request.META.get('HTTP_REFERER')}" \
+        back_reference = f"{self.request.GET['next']}" \
                          f"#post_{self.kwargs['post_id']}"
         return redirect(back_reference)
 
@@ -287,6 +277,6 @@ class PostUnlikeView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         post = get_object_or_404(Post, id=self.kwargs['post_id'])
         Like.objects.filter(post=post, user=self.request.user).delete()
-        back_reference = f"{self.request.META.get('HTTP_REFERER')}" \
+        back_reference = f"{self.request.GET['next']}" \
                          f"#post_{self.kwargs['post_id']}"
         return redirect(back_reference)
