@@ -1,2 +1,2 @@
 # NewFB
-Social network for bloggers. Learn project.
+Social network for bloggers. Pet project.
