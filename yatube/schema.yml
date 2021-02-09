@@ -1,0 +1,1201 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.1.0
+paths:
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - th
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/follow/:
+    get:
+      operationId: api_v1_follow_list
+      description: |-
+        Класс FollowViewSet используется для обработки api-запросов на операции
+        CRUD модели Follow.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- get_queryset.
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+          description: ''
+    post:
+      operationId: api_v1_follow_create
+      description: |-
+        Класс FollowViewSet используется для обработки api-запросов на операции
+        CRUD модели Follow.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- get_queryset.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Follow'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Follow'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Follow'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Follow'
+          description: ''
+  /api/v1/group/:
+    get:
+      operationId: api_v1_group_list
+      description: |-
+        Класс GroupViewSet используется для обработки api-запросов на операции
+        CRUD модели Group.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+          description: ''
+    post:
+      operationId: api_v1_group_create
+      description: |-
+        Класс GroupViewSet используется для обработки api-запросов на операции
+        CRUD модели Group.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Group'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Group'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+  /api/v1/posts/:
+    get:
+      operationId: api_v1_posts_list
+      description: |-
+        Класс PostViewSet используется для обработки api-запросов на операции
+        CRUD модели Post.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create.
+      parameters:
+      - in: query
+        name: group
+        schema:
+          type: integer
+          nullable: true
+        description: Укажите сообщество в котором публикуется запись
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+          description: ''
+    post:
+      operationId: api_v1_posts_create
+      description: |-
+        Класс PostViewSet используется для обработки api-запросов на операции
+        CRUD модели Post.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Post'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: ''
+  /api/v1/posts/{id}/:
+    get:
+      operationId: api_v1_posts_retrieve
+      description: |-
+        Класс PostViewSet используется для обработки api-запросов на операции
+        CRUD модели Post.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Публикация.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: ''
+    put:
+      operationId: api_v1_posts_update
+      description: |-
+        Класс PostViewSet используется для обработки api-запросов на операции
+        CRUD модели Post.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Публикация.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Post'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: ''
+    patch:
+      operationId: api_v1_posts_partial_update
+      description: |-
+        Класс PostViewSet используется для обработки api-запросов на операции
+        CRUD модели Post.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Публикация.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPost'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPost'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPost'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: ''
+    delete:
+      operationId: api_v1_posts_destroy
+      description: |-
+        Класс PostViewSet используется для обработки api-запросов на операции
+        CRUD модели Post.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Публикация.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/posts/{post_id}/comments/:
+    get:
+      operationId: api_v1_posts_comments_list
+      description: |-
+        Класс CommentViewSet используется для обработки api-запросов на операции
+        CRUD модели Comment.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+          description: ''
+    post:
+      operationId: api_v1_posts_comments_create
+      description: |-
+        Класс CommentViewSet используется для обработки api-запросов на операции
+        CRUD модели Comment.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+  /api/v1/posts/{post_id}/comments/{id}/:
+    get:
+      operationId: api_v1_posts_comments_retrieve
+      description: |-
+        Класс CommentViewSet используется для обработки api-запросов на операции
+        CRUD модели Comment.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    put:
+      operationId: api_v1_posts_comments_update
+      description: |-
+        Класс CommentViewSet используется для обработки api-запросов на операции
+        CRUD модели Comment.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    patch:
+      operationId: api_v1_posts_comments_partial_update
+      description: |-
+        Класс CommentViewSet используется для обработки api-запросов на операции
+        CRUD модели Comment.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    delete:
+      operationId: api_v1_posts_comments_destroy
+      description: |-
+        Класс CommentViewSet используется для обработки api-запросов на операции
+        CRUD модели Comment.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/posts/{post_id}/likes/:
+    get:
+      operationId: api_v1_posts_likes_list
+      description: |-
+        Класс LikeViewSet используется для обработки api-запросов на операции
+        CRUD модели Like.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like'
+          description: ''
+    post:
+      operationId: api_v1_posts_likes_create
+      description: |-
+        Класс LikeViewSet используется для обработки api-запросов на операции
+        CRUD модели Like.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Like'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Like'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Like'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like'
+          description: ''
+  /api/v1/posts/{post_id}/likes/{id}/:
+    get:
+      operationId: api_v1_posts_likes_retrieve
+      description: |-
+        Класс LikeViewSet используется для обработки api-запросов на операции
+        CRUD модели Like.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like'
+          description: ''
+    put:
+      operationId: api_v1_posts_likes_update
+      description: |-
+        Класс LikeViewSet используется для обработки api-запросов на операции
+        CRUD модели Like.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Like'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Like'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Like'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like'
+          description: ''
+    patch:
+      operationId: api_v1_posts_likes_partial_update
+      description: |-
+        Класс LikeViewSet используется для обработки api-запросов на операции
+        CRUD модели Like.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLike'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLike'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLike'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like'
+          description: ''
+    delete:
+      operationId: api_v1_posts_likes_destroy
+      description: |-
+        Класс LikeViewSet используется для обработки api-запросов на операции
+        CRUD модели Like.
+
+        Родительский класс -- viewsets.ModelViewSet.
+        Переопределенные атрибуты -- serializer_class, permission_classes.
+        Переопределенные методы -- perform_create, get_queryset.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/token/:
+    post:
+      operationId: api_v1_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/v1/token/refresh/:
+    post:
+      operationId: api_v1_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+components:
+  schemas:
+    Comment:
+      type: object
+      description: |-
+        Класс CommentSerializer описывает сериализатор модели комментариев.
+
+        Родительский класс -- serializers.ModelSerializer.
+
+        Атрибуты класса
+        --------
+        author : str
+            Юзернейм автора.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        text:
+          type: string
+          description: Введите текст комментария
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Укажите дату и время комментария
+        post:
+          type: integer
+          description: Укажите комментируемое сообщение
+      required:
+      - author
+      - created
+      - id
+      - post
+      - text
+    Follow:
+      type: object
+      description: |-
+        Класс FollowSerializer описывает сериализатор модели подписок.
+
+        Родительский класс -- serializers.ModelSerializer.
+        Переопределенные методы -- validate.
+
+        Атрибуты класса
+        --------
+        user : str
+            Юзернейм подписчика.
+        following : str
+            Юзернейм автора на которого подписываемся.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: string
+        following:
+          type: string
+      required:
+      - following
+      - id
+    Group:
+      type: object
+      description: |-
+        Класс GroupSerializer описывает сериализатор модели сообществ.
+
+        Родительский класс -- serializers.ModelSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          description: Назовите сообщество
+          maxLength: 200
+        slug:
+          type: string
+          readOnly: true
+          description: Укажите псевдоним сообщества
+          pattern: ^[-a-zA-Z0-9_]+$
+      required:
+      - id
+      - slug
+      - title
+    Like:
+      type: object
+      description: |-
+        Класс LikeSerializer описывает сериализатор модели лайков.
+
+        Родительский класс -- serializers.ModelSerializer.
+
+        Атрибуты класса
+        --------
+        author : str
+            Юзернейм автора.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          description: Укажите пользователя
+        author:
+          type: string
+        post:
+          type: integer
+          description: Укажите к какому посту лайк
+      required:
+      - author
+      - id
+      - post
+      - user
+    PatchedComment:
+      type: object
+      description: |-
+        Класс CommentSerializer описывает сериализатор модели комментариев.
+
+        Родительский класс -- serializers.ModelSerializer.
+
+        Атрибуты класса
+        --------
+        author : str
+            Юзернейм автора.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        text:
+          type: string
+          description: Введите текст комментария
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Укажите дату и время комментария
+        post:
+          type: integer
+          description: Укажите комментируемое сообщение
+    PatchedLike:
+      type: object
+      description: |-
+        Класс LikeSerializer описывает сериализатор модели лайков.
+
+        Родительский класс -- serializers.ModelSerializer.
+
+        Атрибуты класса
+        --------
+        author : str
+            Юзернейм автора.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          description: Укажите пользователя
+        author:
+          type: string
+        post:
+          type: integer
+          description: Укажите к какому посту лайк
+    PatchedPost:
+      type: object
+      description: |-
+        Класс PostSerializer описывает сериализатор модели постов.
+
+        Родительский класс -- serializers.ModelSerializer.
+
+        Атрибуты класса
+        --------
+        author : str
+            Юзернейм автора.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        text:
+          type: string
+          description: Введите текст сообщения
+        pub_date:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Укажите дату и время публикации
+        image:
+          type: string
+          format: uri
+          nullable: true
+          description: Выберите изображение к сообщению
+        group:
+          type: integer
+          nullable: true
+          description: Укажите сообщество в котором публикуется запись
+    Post:
+      type: object
+      description: |-
+        Класс PostSerializer описывает сериализатор модели постов.
+
+        Родительский класс -- serializers.ModelSerializer.
+
+        Атрибуты класса
+        --------
+        author : str
+            Юзернейм автора.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        text:
+          type: string
+          description: Введите текст сообщения
+        pub_date:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Укажите дату и время публикации
+        image:
+          type: string
+          format: uri
+          nullable: true
+          description: Выберите изображение к сообщению
+        group:
+          type: integer
+          nullable: true
+          description: Укажите сообщество в котором публикуется запись
+      required:
+      - author
+      - id
+      - pub_date
+      - text
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Bearer

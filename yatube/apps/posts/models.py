@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import UniqueConstraint
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
-
-from sorl.thumbnail import delete as delete_tumbnails
-from sorl.thumbnail import get_thumbnail
+from pytils.translit import slugify
+from sorl.thumbnail import delete as delete_tumbnails, get_thumbnail
 
 User = get_user_model()
 
@@ -59,8 +59,8 @@ class Post(models.Model):
         verbose_name='Автор',
         on_delete=models.CASCADE,
         related_name='posts',
-        help_text='Укажите автора сообщения'
-    )
+        help_text='Укажите автора сообщения')
+
     group = models.ForeignKey(
         'Group',
         verbose_name='Сообщество',
@@ -72,9 +72,7 @@ class Post(models.Model):
     )
     image = models.ImageField(
         'Изображение',
-        # upload_to=author_directory_path,
-        # Для тестов
-        upload_to='posts/',
+        upload_to=author_directory_path,
         blank=True,
         null=True,
         help_text='Выберите изображение к сообщению'
@@ -98,7 +96,8 @@ class Post(models.Model):
 
     def clear_thumbnails(self):
         """Очистить ссылки на кэшированные изображения."""
-        delete_tumbnails(self.image)
+        if self.image:
+            delete_tumbnails(self.image)
 
     def get_post_image(self):
         """Получить изображение для отображения в посте."""
@@ -106,9 +105,9 @@ class Post(models.Model):
 
     def delete(self):
         """При удалении записи удалить все ссылаемые объекты."""
-        obj = Post.objects.get(pk=self.pk)
+        obj = get_object_or_404(Post, pk=self.pk)
         obj.clear_thumbnails()
-        super(Post, self).delete()
+        super().delete()
 
 
 class Group(models.Model):
@@ -138,7 +137,6 @@ class Group(models.Model):
     )
     slug = models.SlugField(
         verbose_name='Слаг',
-        unique=True,
         help_text='Укажите псевдоним сообщества'
     )
     description = models.TextField(
@@ -154,6 +152,13 @@ class Group(models.Model):
     def __str__(self):
         """ Вернуть строковое представление в виде имени сообщества."""
         return self.title
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        slug = self.slug
+        if not slug:
+            self.slug = slugify(self.title)[:100]
+        super().save()
 
 
 class Comment(models.Model):

@@ -6,7 +6,7 @@ idna==2.8                 # via requests
 importlib-metadata==1.5.0  # via pluggy, pytest
 more-itertools==8.2.0     # via pytest
 packaging==20.1           # via pytest
-pillow==7.0.0
+pillow==8.1.0
 pluggy==0.13.1            # via pytest
 py==1.8.1                 # via pytest
 pyparsing==2.4.6          # via packaging
@@ -22,3 +22,10 @@ wcwidth==0.1.8            # via pytest
 zipp==2.2.0               # via importlib-metadata
 django_cleanup==5.1.0
 django-debug-toolbar==3.2
+django-summernote==0.8.11.6
+jsmin==2.2.2
+djangorestframework~=3.12.2
+django-cors-headers==3.6.0
+django-filter~=2.4.0
+python-dotenv~=0.15.0
+pytils~=0.3

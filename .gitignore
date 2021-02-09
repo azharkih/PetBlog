@@ -3,7 +3,7 @@ env/
 venv/
 .venv
 .venv/
-production.env
+.env
 
 __pycache__/
 *.py[cod]
@@ -22,3 +22,7 @@ media/
 
 db.sqlite3
 
+/dev.env
+/prod.env
+/.env.dev
+/.env.prod

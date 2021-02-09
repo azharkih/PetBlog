@@ -41,7 +41,7 @@ urlpatterns = [
     path('<str:username>/<int:post_id>/edit/',
          views.EditPostView.as_view(),
          name='post_edit'),
-    path("<str:username>/<int:post_id>/comment/",
+    path('<str:username>/<int:post_id>/comment/',
          require_POST(views.AddCommentView.as_view()),
          name='add_comment'),
 ]

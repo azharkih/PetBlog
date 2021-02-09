@@ -5,11 +5,12 @@
   {% endthumbnail %}
   <div class="card-body">
     <p class="card-text">
+
       <a name="post_{{ post.id }}"
          href="{% url 'profile' post.author.username %}">
         <strong class="d-block text-gray-dark">@{{ post.author }}</strong>
       </a>
-      {{ post.text|linebreaksbr }}
+      {{ post.text|safe }}
     </p>
     {% if post.group %}
       <a class="card-link muted"

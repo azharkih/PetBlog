@@ -1,15 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-from .forms import PostForm, CommentForm
-from .models import Post, Group, Follow, User, Like
-from .view_add import UserProfile, PostQuerySet
+from .forms import CommentForm, PostForm
+from .models import Follow, Group, Like, Post, User
+from .view_add import PostQuerySet, UserProfile
 
 
 def page_not_found(request, exception):

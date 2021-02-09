@@ -13,35 +13,8 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/env" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/bootstrap/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/bootstrap/js/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/external/sizzle/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/src/ajax/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/src/core/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/src/css/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/src/data/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/src/manipulation/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/src/traversing/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/jquery/src/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/apps/posts/static/popper.js/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/media" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/bootstrap/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/bootstrap/js/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/external/sizzle/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/src/ajax/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/src/core/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/src/css/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/src/data/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/src/manipulation/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/src/traversing/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/jquery/src/var" />
-      <excludeFolder url="file://$MODULE_DIR$/yatube/static/popper.js/dist" />
-    </content>
-    <orderEntry type="jdk" jdkName="Python 3.6 (Yatube)" jdkType="Python SDK" />
+    <content url="file://$MODULE_DIR$/yatube" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (Yatube)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">

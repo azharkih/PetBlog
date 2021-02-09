@@ -1,7 +1,7 @@
 from django import forms
-from django.forms import widgets
+from django_summernote.widgets import SummernoteWidget
 
-from .models import Post, Comment
+from .models import Comment, Post
 
 
 class PostForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('group', 'text', 'image')
-        widgets = {'image': widgets.ClearableFileInput()}
+        widgets = {'text': SummernoteWidget()}
 
 
 class CommentForm(forms.ModelForm):

@@ -1,7 +1,7 @@
-from django.db.models import Count, Sum, When, Case, BooleanField, Value
+from django.db.models import BooleanField, Case, Count, Sum, Value, When
 from django.shortcuts import get_object_or_404
 
-from .models import User, Follow, Post
+from .models import Follow, Post, User
 
 
 class UserProfile:
