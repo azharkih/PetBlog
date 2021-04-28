@@ -1,2 +1,2 @@
-# NewFB
-Social network for bloggers. Pet project.
+# PetBlog
+Pet blog project. Social network for bloggers. 
