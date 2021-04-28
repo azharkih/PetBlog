@@ -5,7 +5,7 @@ from .models import Comment, Follow, Group, Post
 
 class PostAdmin(admin.ModelAdmin):
     """ Класс PostAdmin используется для конфигурации отображения модели Post
-    в админ-панели
+    в админ-панели.
 
     Атрибуты класса
     --------
@@ -27,7 +27,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class GroupAdmin(admin.ModelAdmin):
     """ Класс GroupAdmin используется для конфигурации отображения модели Group
-    в админ-панели
+    в админ-панели.
 
     Атрибуты класса
     --------
@@ -45,8 +45,8 @@ class GroupAdmin(admin.ModelAdmin):
 
 
 class FollowAdmin(admin.ModelAdmin):
-    """ Класс FollowAdmin используется для конфигурации отображения модели Follow
-    в админ-панели
+    """ Класс FollowAdmin используется для конфигурации отображения модели
+    Follow в админ-панели.
 
     Атрибуты класса
     --------
@@ -64,8 +64,8 @@ class FollowAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    """ Класс CommentAdmin используется для конфигурации отображения модели Group
-    в админ-панели
+    """ Класс CommentAdmin используется для конфигурации отображения модели
+    Group в админ-панели.
 
     Атрибуты класса
     --------

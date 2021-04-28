@@ -13,7 +13,8 @@ from ..models import Comment, Follow, Group, Like, Post
 class CreateAndListViewSet(mixins.CreateModelMixin,
                            mixins.ListModelMixin,
                            GenericViewSet):
-    """ Класс PostViewSet используется для обеспечения `create()` и `list()`.
+    """ Класс CreateAndListViewSet используется для обеспечения `create()` и
+    `list()`.
     """
     pass
 
@@ -97,7 +98,8 @@ class FollowViewSet(CreateAndListViewSet):
     CRUD модели Follow.
 
     Родительский класс -- viewsets.ModelViewSet.
-    Переопределенные атрибуты -- queryset, serializer_class, permission_classes.
+    Переопределенные атрибуты -- serializer_class, permission_classes,
+    filter_backends.
     Переопределенные методы -- get_queryset.
     """
     serializer_class = FollowSerializer

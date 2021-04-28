@@ -29,3 +29,5 @@ django-cors-headers==3.6.0
 django-filter~=2.4.0
 python-dotenv~=0.15.0
 pytils~=0.3
+drf-spectacular==0.13.2
+djangorestframework-simplejwt
